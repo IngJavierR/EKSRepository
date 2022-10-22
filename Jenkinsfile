@@ -48,6 +48,12 @@ pipeline {
             }
             steps {
                 dir("infra/"){
+                    sh 'kubectl delete -f nginx_ingress_services.yaml'
+                    sh 'kubectl delete -f Payment-deployment.yaml'
+                    sh 'kubectl delete -f Kitchen-deployment.yaml'
+                    sh 'kubectl delete -f Order-deployment.yaml'
+                    sh 'kubectl delete -f secrets.yaml'
+                    sh 'kubectl delete -f ingress-deploy.yaml'
                     sh "terraform destroy --auto-approve"
                 }
             }
