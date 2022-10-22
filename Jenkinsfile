@@ -47,13 +47,15 @@ pipeline {
                 equals expected: true, actual: params.destroy
             }
             steps {
-                dir("infra/"){
+                dir("Deployment/"){
                     sh 'kubectl delete -f nginx_ingress_services.yaml'
                     sh 'kubectl delete -f Payment-deployment.yaml'
                     sh 'kubectl delete -f Kitchen-deployment.yaml'
                     sh 'kubectl delete -f Order-deployment.yaml'
                     sh 'kubectl delete -f secrets.yaml'
                     sh 'kubectl delete -f ingress-deploy.yaml'
+                }
+                dir("infra/"){
                     sh "terraform destroy --auto-approve"
                 }
             }
